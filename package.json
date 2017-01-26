@@ -1,0 +1,17 @@
+{
+  "name": "reddit-clone",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": {},
+  "author": "Jamieson Bates <jamiesonbates@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "lite-server"
+  },
+  "devDependencies": {
+    "lite-server": "^2.2.2"
+  },
+  "dependencies": {
+    "angular": "1.6.0"
+  }
+}
