@@ -12,8 +12,6 @@
           title: 'Darts are Awesome',
           body: 'Darts are so awesome that I play at least 15 games a day. One at home and 14 at the bar.',
           author: 'Barstool Sports'
-
-
        }
       ];
     }
@@ -24,6 +22,12 @@
 
     vm.createPost = function() {
       vm.posts.push(vm.post);
+      vm.contentHeight = `{
+        height: ${vm.posts.length * 37}vh;
+      }`;
+      vm.post = null;
+      vm.newPost = false;
+      console.log(vm.contentHeight);
       console.log(vm.posts);
     }
   }
@@ -44,7 +48,7 @@
             </div>
           </section>
 
-          <section>
+          <section ng-style={{$ctrl.contentHeight}}>
             <div class="post" ng-repeat="post in $ctrl.posts">
               <div class="votes">
                 <i class="material-icons">thumb_up</i>
