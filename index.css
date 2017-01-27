@@ -1,0 +1,244 @@
+@import url('https://fonts.googleapis.com/css?family=VT323');
+@import url('https://fonts.googleapis.com/css?family=Architects+Daughter');
+
+html, body {
+  width: 100%;
+  margin: 0;
+}
+
+h1, h2, h3, h4, h5, p {
+  margin: 0;
+}
+
+/*
+-------------------------------------------------------------------------------
+  Page Header
+-------------------------------------------------------------------------------
+*/
+header {
+  height: 10vh;
+  min-height: 60px;
+  width: 100%;
+  background-color: #FF402E;
+  display: flex;
+  align-items: center;
+}
+
+.container {
+  width: 95%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+}
+
+h1 { /* oddly is not centering via flexbox */
+  color: white;
+  font-size: 2.5em;
+  font-family: 'VT323';
+}
+
+/*
+-------------------------------------------------------------------------------
+  Filters
+-------------------------------------------------------------------------------
+*/
+.filters {
+  height: 15vh;
+  display: flex;
+  align-items: center;
+}
+
+.filter-container {
+  height: 100%;
+  width: 40%;
+  margin-left: 5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.text-filter {
+  height: 25%;
+  width: 55%;
+}
+
+.select-filter {
+  height: 25%;
+  width: 30%;
+}
+
+/*
+-------------------------------------------------------------------------------
+  Posts
+-------------------------------------------------------------------------------
+*/
+.post {
+  height: 35vh;
+  width: 90vw;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #E7E8E5;
+  margin-bottom: 3%;
+}
+
+.votes {
+  height: 100%;
+  width: 7.5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.image {
+  height: 80%;
+  width: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.image img {
+  /*height: 100%;*/
+  width: 100%;
+}
+
+.details {
+  height: 80%;
+  width: 72.5%;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.details-container {
+  height: 100%;
+  width: 95%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+
+.opening {
+  width: 100%;
+  margin-bottom: 1%;
+  display: flex;
+  justify-content: space-between;
+
+}
+
+.meta {
+  width: 30%;
+  margin-top: 1%;
+  display: flex;
+  justify-content: space-between;
+}
+
+/*
+-------------------------------------------------------------------------------
+  Post Form
+-------------------------------------------------------------------------------
+*/
+aside {
+  height: 10vh;
+  min-height: 60px;
+  width: 100%;
+  background-color: #FF402E;
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0px 5px 1px gray;
+}
+
+aside header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+h2 {
+  color: white;
+  font-size: 3.5em;
+  font-family: 'VT323';
+}
+
+.active-post {
+  height: 70vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.align-post-header {
+  height: 15%;
+  width: 100%;
+  margin: 0 auto;
+  align-self: flex-start;
+}
+
+.post-form {
+  height: 85%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.post-form form {
+  height: 85%;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+}
+
+.form-input {
+  height: 20%;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.form-input input {
+  padding-left: 1%;
+  font-size: 1.5em;
+  box-sizing: border-box;
+  height: 60%;
+  width: 100%;
+}
+
+.post-form form label {
+  font-family: "Architects Daughter";
+  font-size: 1.25em;
+  color: white;
+  align-self: flex-start;
+}
+
+.form-submit {
+  width: 50%;
+  height: 20%;
+  display: flex;
+  justify-content: center;
+  align-items:flex-end;
+
+}
+
+.form-submit button {
+  font-family: 'VT323';
+  font-size: 2.25em;
+  color: white;
+  width: 40%;
+  height: 70%;
+  border: none;
+  background-color: #0C232E;
+  border-radius: 5px;
+}
