@@ -48,7 +48,7 @@
             </div>
           </section>
 
-          <section ng-style={{$ctrl.contentHeight}}>
+          <section ng-style={{ $ctrl.contentHeight }}>
             <div class="post" ng-repeat="post in $ctrl.posts">
               <div class="votes">
                 <i class="material-icons">thumb_up</i>
