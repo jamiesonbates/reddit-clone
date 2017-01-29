@@ -11,7 +11,8 @@
           image: 'https://images.pexels.com/photos/226576/pexels-photo-226576.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb',
           title: 'Darts are Awesome',
           body: 'Darts are so awesome that I play at least 15 games a day. One at home and 14 at the bar.',
-          author: 'Barstool Sports'
+          author: 'Barstool Sports',
+          votes: 0
        }
       ];
     }
@@ -21,14 +22,29 @@
     }
 
     vm.createPost = function() {
+      vm.post.votes = 0;
       vm.posts.push(vm.post);
       vm.contentHeight = `{
         height: ${vm.posts.length * 37}vh;
       }`;
       vm.post = null;
       vm.newPost = false;
-      console.log(vm.contentHeight);
-      console.log(vm.posts);
+    }
+
+    vm.updateVotes = function(thisPost, vote) {
+      vm.posts.map((post) => {
+        if (thisPost === post) {
+          if (vote === 'up') {
+            post.votes += 1;
+          }
+          else {
+            if (post.votes === 0) {
+              return;
+            }
+            post.votes -= 1;
+          }
+        }
+      });
     }
   }
 
@@ -51,9 +67,9 @@
           <section ng-style={{ $ctrl.contentHeight }}>
             <div class="post" ng-repeat="post in $ctrl.posts">
               <div class="votes">
-                <i class="material-icons">thumb_up</i>
-                <p>5</p>
-                <i class="material-icons">thumb_down</i>
+                <i class="material-icons" ng-click="$ctrl.updateVotes(post, 'up')">thumb_up</i>
+                <p>{{post.votes}}</p>
+                <i class="material-icons" ng-click="$ctrl.updateVotes(post, 'down')">thumb_down</i>
               </div>
 
               <div class="image">
