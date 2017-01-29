@@ -6,6 +6,7 @@
 
     vm.$onInit = function() {
       vm.newPost = false;
+      vm.hoverNewPost = false;
       vm.posts = [
         {
           image: 'https://images.pexels.com/photos/226576/pexels-photo-226576.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb',
@@ -59,6 +60,11 @@
 
     vm.showPost = function() {
       vm.newPost = !vm.newPost;
+    }
+
+    vm.hoverPost = function() {
+      console.log(vm.hoverNewPost);
+      vm.hoverNewPost = !vm.hoverNewPost;
     }
 
     vm.createPost = function() {
@@ -136,10 +142,10 @@
         </main>
 
         <aside ng-class="{
-            'active-post' : $ctrl.newPost
+            'active-post' : $ctrl.newPost,
           }">
 
-          <header ng-click="$ctrl.showPost()" ng-class="{ 'align-post-header' : $ctrl.post }">
+          <header ng-click="$ctrl.showPost()" ng-class="{ 'hover-post' : $ctrl.hoverNewPost }" ng-mouseenter="$ctrl.hoverPost()" ng-mouseleave="$ctrl.hoverPost()" ng-class="{ 'align-post-header' : $ctrl.post }">
             <h2>Create Post</h2>
           </header>
 

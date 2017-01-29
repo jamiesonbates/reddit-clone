@@ -200,6 +200,10 @@ h2 {
   justify-content: center;
 }
 
+.hover-post {
+  background-color: #0C232E;
+}
+
 .post-form form {
   height: 85%;
   width: 100%;
