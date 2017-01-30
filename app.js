@@ -5,6 +5,7 @@
     const vm = this;
 
     vm.$onInit = function() {
+      console.log(moment([2017, 0, 30, 11, 15]).fromNow());
       vm.newPost = false;
       vm.hoverNewPost = false;
       vm.posts = [
@@ -14,7 +15,7 @@
           body: 'Darts are so awesome that I play at least 15 games a day. One at home and 14 at the bar.',
           author: 'Barstool Sports',
           created_at: Date.now(),
-          modified_at: moment('20111031', 'YYYYMMDD').fromNow(),
+          modified_at: Date.now(),
           votes: 2
        },
         {
@@ -23,7 +24,7 @@
           body: 'But he is not alone, he is surrounded by a few of his favorite things',
           author: 'Bar Times',
           created_at: Date.now(),
-          modified_at: moment('20111031', 'YYYYMMDD').fromNow(),
+          modified_at: Date.now(),
           votes: 0
        },
         {
@@ -32,7 +33,7 @@
           body: 'From mountain top to valley bottom, you will spend amazing moments in the air above an incredibly vibrant forest.',
           author: 'Outdoor Mag',
           created_at: Date.now(),
-          modified_at: moment(Date.now(), 'YYYYMMDD').fromNow(),
+          modified_at: Date.now(),
           votes: 5
        },
        {
@@ -41,7 +42,7 @@
          body: 'Get out there this winter. Skiing is an excistential experience where you you experience speed, agility, and utter remoteness all in one.',
          author: 'Skiing News',
          created_at: Date.now(),
-         modified_at: moment('20111031', 'YYYYMMDD').fromNow(),
+         modified_at: Date.now(),
          votes: 7
       }];
 
@@ -62,6 +63,8 @@
           orderBy: `title`
         }
       ];
+
+      console.log(moment([Date.getFullYear(vm.posts[0].modified_at), Date.getMonth(vm.posts[0].modified_at), Date.getDate(vm.posts[0].modified_at), Date.getHours(vm.posts[0].modified_at), Date.getMinutes(vm.posts[0].modified_at)]));
 
       vm.selected = vm.options[0];
     }
@@ -108,6 +111,10 @@
     vm.searchByTitle = function() {
       console.log(vm.search);
     }
+
+    vm.createMoment = function(post) {
+      return moment([Date.getFullYear(post.modified_at), Date.getMonth(post.modified_at), Date.getDate(post.modified_at), Date.getHours(post.modified_at), Date.getMinutes(post.modified_at)]);
+    }
   }
 
   angular.module('app', [])
@@ -143,7 +150,7 @@
                   </div>
                   <p>{{post.body}}</p>
                   <div class="meta">
-                    <p>{{post.modified_at}}</p>
+                    <p>{{$ctrl.createMoment(post)}}</p>
                     <p>2 Comments</p>
                   </div>
                 </div>
