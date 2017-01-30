@@ -13,6 +13,8 @@
           title: 'Darts are Awesome',
           body: 'Darts are so awesome that I play at least 15 games a day. One at home and 14 at the bar.',
           author: 'Barstool Sports',
+          created_at: Date.now(),
+          modified_at: moment('20111031', 'YYYYMMDD').fromNow(),
           votes: 2
        },
         {
@@ -20,6 +22,8 @@
           title: 'Man sits alone in pub',
           body: 'But he is not alone, he is surrounded by a few of his favorite things',
           author: 'Bar Times',
+          created_at: Date.now(),
+          modified_at: moment('20111031', 'YYYYMMDD').fromNow(),
           votes: 0
        },
         {
@@ -27,6 +31,8 @@
           title: 'Paraglide your way to paradise',
           body: 'From mountain top to valley bottom, you will spend amazing moments in the air above an incredibly vibrant forest.',
           author: 'Outdoor Mag',
+          created_at: Date.now(),
+          modified_at: moment(Date.now(), 'YYYYMMDD').fromNow(),
           votes: 5
        },
        {
@@ -34,6 +40,8 @@
          title: 'Skiing Changes You',
          body: 'Get out there this winter. Skiing is an excistential experience where you you experience speed, agility, and utter remoteness all in one.',
          author: 'Skiing News',
+         created_at: Date.now(),
+         modified_at: moment('20111031', 'YYYYMMDD').fromNow(),
          votes: 7
       }];
 
@@ -135,7 +143,7 @@
                   </div>
                   <p>{{post.body}}</p>
                   <div class="meta">
-                    <p>2 minutes ago</p>
+                    <p>{{post.modified_at}}</p>
                     <p>2 Comments</p>
                   </div>
                 </div>
