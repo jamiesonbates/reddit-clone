@@ -59,11 +59,15 @@
     }
 
     vm.showPost = function() {
+      vm.hoverNewPost = !vm.hoverNewPost;
       vm.newPost = !vm.newPost;
     }
 
     vm.hoverPost = function() {
-      console.log(vm.hoverNewPost);
+      if (vm.newPost) {
+        return;
+      }
+
       vm.hoverNewPost = !vm.hoverNewPost;
     }
 
