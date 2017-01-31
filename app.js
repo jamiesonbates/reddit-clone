@@ -8,6 +8,7 @@
       console.log(moment([2017, 0, 30, 11, 15]).fromNow());
       vm.newPost = false;
       vm.hoverNewPost = false;
+
       vm.posts = [
         {
           image: 'https://images.pexels.com/photos/226576/pexels-photo-226576.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb',
@@ -41,8 +42,8 @@
          title: 'Skiing Changes You',
          body: 'Get out there this winter. Skiing is an excistential experience where you you experience speed, agility, and utter remoteness all in one.',
          author: 'Skiing News',
-         created_at: Date.now(),
-         modified_at: Date.now(),
+         created_at: new Date(Date.now()),
+         modified_at: new Date(Date.now()),
          votes: 7
       }];
 
@@ -64,9 +65,12 @@
         }
       ];
 
-      console.log(moment([Date.getFullYear(vm.posts[0].modified_at), Date.getMonth(vm.posts[0].modified_at), Date.getDate(vm.posts[0].modified_at), Date.getHours(vm.posts[0].modified_at), Date.getMinutes(vm.posts[0].modified_at)]));
-
       vm.selected = vm.options[0];
+
+      console.log(new Date(vm.posts[0].modified_at).getFullYear());
+
+      console.log(moment([new Date(vm.posts[0].modified_at).getFullYear(), new Date(vm.posts[0].modified_at).getMonth(), new Date(vm.posts[0].modified_at).getDate(), new Date(vm.posts[0].modified_at).getHours(), new Date(vm.posts[0].modified_at).getMinutes()]).fromNow());
+
     }
 
     vm.showPost = function() {
@@ -112,12 +116,12 @@
       console.log(vm.search);
     }
 
-    vm.createMoment = function(post) {
-      return moment([Date.getFullYear(post.modified_at), Date.getMonth(post.modified_at), Date.getDate(post.modified_at), Date.getHours(post.modified_at), Date.getMinutes(post.modified_at)]);
-    }
+    // vm.createMoment = function(post) {
+    //   return moment([Date.getFullYear(post.modified_at), Date.getMonth(post.modified_at), Date.getDate(post.modified_at), Date.getHours(post.modified_at), Date.getMinutes(post.modified_at)]);
+    // }
   }
 
-  angular.module('app', [])
+  angular.module('app', ['angularMoment'])
     .component('redditClone', {
       controller: controller,
       template: `
@@ -132,12 +136,6 @@
 
           <section ng-style={{ $ctrl.contentHeight }}>
             <div class="post" ng-repeat="post in $ctrl.posts | filter:$ctrl.search | orderBy:$ctrl.selected.orderBy">
-              <div class="votes">
-                <i class="material-icons" ng-click="$ctrl.updateVotes(post, 'up')">keyboard_arrow_up</i>
-                <p>{{post.votes}}</p>
-                <i class="material-icons" ng-click="$ctrl.updateVotes(post, 'down')">keyboard_arrow_down</i>
-              </div>
-
               <div class="image">
                 <img src={{post.image}}>
               </div>
@@ -145,15 +143,26 @@
               <div class="details">
                 <div class="details-container">
                   <div class="opening">
-                    <h3>{{post.title}}</h3>
-                    <h4>{{post.author}}</h4>
+                    <h3>{{ post.title}}</h3>
+                    <h4>{{ post.author }}</h4>
                   </div>
-                  <p>{{post.body}}</p>
+                  <p>{{ post.body }}</p>
                   <div class="meta">
-                    <p>{{$ctrl.createMoment(post)}}</p>
-                    <p>2 Comments</p>
+                    <div class="from-now">
+                      <p am-time-ago="post.modified_at"></p>
+                    </div>
+                    <div class="comments">
+                      <i class="material-icons">comment</i>
+                      <p>2 Comments</p>
+                    </div>
                   </div>
                 </div>
+              </div>
+
+              <div class="votes">
+                <i class="material-icons" ng-click="$ctrl.updateVotes(post, 'up')">keyboard_arrow_up</i>
+                <p>{{post.votes}}</p>
+                <i class="material-icons" ng-click="$ctrl.updateVotes(post, 'down')">keyboard_arrow_down</i>
               </div>
 
             </div>
