@@ -5,9 +5,9 @@
     const vm = this;
 
     vm.$onInit = function() {
-      console.log(moment([2017, 0, 30, 11, 15]).fromNow());
       vm.newPost = false;
       vm.hoverNewPost = false;
+      vm.comment = false;
 
       vm.posts = [
         {
@@ -17,7 +17,8 @@
           author: 'Barstool Sports',
           created_at: Date.now(),
           modified_at: Date.now(),
-          votes: 2
+          votes: 2,
+          comments: []
        },
         {
           image: 'https://3hsyn13u3q9dhgyrg2qh3tin-wpengine.netdna-ssl.com/wp-content/uploads/2017/01/SplitShire-8418-1024x682.jpg',
@@ -26,7 +27,8 @@
           author: 'Bar Times',
           created_at: Date.now(),
           modified_at: Date.now(),
-          votes: 0
+          votes: 0,
+          comments: []
        },
         {
           image: 'https://3hsyn13u3q9dhgyrg2qh3tin-wpengine.netdna-ssl.com/wp-content/uploads/2017/01/SplitShire-0424-1024x768.jpg',
@@ -35,7 +37,8 @@
           author: 'Outdoor Mag',
           created_at: Date.now(),
           modified_at: Date.now(),
-          votes: 5
+          votes: 5,
+          comments: []
        },
        {
          image: 'https://3hsyn13u3q9dhgyrg2qh3tin-wpengine.netdna-ssl.com/wp-content/uploads/2017/01/SplitShire-3600.jpg',
@@ -44,7 +47,8 @@
          author: 'Skiing News',
          created_at: new Date(Date.now()),
          modified_at: new Date(Date.now()),
-         votes: 7
+         votes: 7,
+         comments: []
       }];
 
       vm.options = [
@@ -66,11 +70,6 @@
       ];
 
       vm.selected = vm.options[0];
-
-      console.log(new Date(vm.posts[0].modified_at).getFullYear());
-
-      console.log(moment([new Date(vm.posts[0].modified_at).getFullYear(), new Date(vm.posts[0].modified_at).getMonth(), new Date(vm.posts[0].modified_at).getDate(), new Date(vm.posts[0].modified_at).getHours(), new Date(vm.posts[0].modified_at).getMinutes()]).fromNow());
-
     }
 
     vm.showPost = function() {
@@ -88,6 +87,7 @@
 
     vm.createPost = function() {
       vm.post.votes = 0;
+      vm.post.comments = [];
       vm.posts.push(vm.post);
       vm.contentHeight = `{
         height: ${vm.posts.length * 37}vh;
@@ -116,9 +116,15 @@
       console.log(vm.search);
     }
 
-    // vm.createMoment = function(post) {
-    //   return moment([Date.getFullYear(post.modified_at), Date.getMonth(post.modified_at), Date.getDate(post.modified_at), Date.getHours(post.modified_at), Date.getMinutes(post.modified_at)]);
-    // }
+    vm.toggleComments = function() {
+      vm.comment = !vm.comment;
+    }
+
+    vm.addComment = function(post) {
+      console.log(post);
+      post.comments.push(vm.newComment);
+      delete vm.newComment;
+    }
   }
 
   angular.module('app', ['angularMoment'])
@@ -152,8 +158,21 @@
                       <p am-time-ago="post.modified_at"></p>
                     </div>
                     <div class="comments">
-                      <i class="material-icons">comment</i>
-                      <p>2 Comments</p>
+                      <div class="comment-meta">
+                        <i class="material-icons">comment</i>
+                        <a href="#" ng-click="$ctrl.toggleComments()">{{post.comments.length}} Comments</a>
+                      </div>
+
+                      <div ng-if="$ctrl.comment">
+                        <form ng-submit="$ctrl.addComment(post)">
+                          <input ng-model="$ctrl.newComment" placeholder="Write Comment">
+                          <button type="submit">Comment</button>
+                        </form>
+
+                        <div ng-repeat="comment in post.comments">
+                          <p>{{ comment }}</p>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
