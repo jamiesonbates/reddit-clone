@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html ng-app="app">
+  <head>
+    <meta charset="utf-8">
+    <title>Reddit Clone</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <base href="/">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="./css/index.css">
+
+    <script defer src="./js/dependencies/angular.min.js"></script>
+    <script defer src="./js/dependencies/angular-ui-router.min.js"></script>
+    <script defer src="./js/dependencies/moment.min.js"></script>
+    <script defer src="./js/dependencies/angular-moment.min.js"></script>
+    <script defer src="./js/app.module.js"></script>
+    <script defer src="./js/app.config.js"></script>
+    <script defer src="./js/landingPage.js"></script>
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <h1>Reddit Clone</h1>
+      </div>
+    </header>
+
+    <ui-view></ui-view>
+
+    <footer></footer>
+  </body>
+</html>
