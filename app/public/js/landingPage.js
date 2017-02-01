@@ -14,7 +14,7 @@
             </div>
           </section>
 
-          <section ng-style={{ $ctrl.contentHeight }}>
+          <section ng-style="$ctrl.contentHeight">
             <div class="post" ng-repeat="post in $ctrl.posts | filter:$ctrl.search | orderBy:$ctrl.selected.orderBy">
               <div class="image">
                 <img src={{post.image_url}}>
@@ -29,7 +29,7 @@
                   <p>{{ post.body }}</p>
                   <div class="meta">
                     <div class="from-now">
-                      <p am-time-ago="post.modified_at"></p>
+                      <p am-time-ago="post.created_at"></p>
                     </div>
                     <div class="comments">
                       <div class="comment-meta">
@@ -48,6 +48,8 @@
                         </div>
                       </div>
                     </div>
+
+                    <a ui-sref="postPage({ id: post.id })">Edit</a>
                   </div>
                 </div>
               </div>
