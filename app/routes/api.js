@@ -30,4 +30,59 @@ router.get('/', (req, res) => {
     })
 });
 
+router.get('/:id', (req, res) => {
+  const postId = req.params.id;
+  let post;
+
+  return knex('posts')
+    .where('id', postId)
+    .then((rawPost) => {
+      post = rawPost[0];
+
+      return knex('comments')
+        .where('post_id', postId)
+    })
+    .then((comments) => {
+      post.allComments = comments;
+
+      res.send(post);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+})
+
+router.patch('/:id', (req, res) => {
+  const postId = req.params.id;
+  console.log(postId);
+  console.log(req.body);
+  const { image_url, title, author, body } = req.body;
+  console.log('here');
+  console.log(image_url);
+  console.log(title);
+  console.log(author);
+  console.log(body);
+  let post;
+
+  return knex('posts')
+    .update({ image_url, title, author, body })
+    .where('id', postId)
+    .returning('*')
+    .then((rawPost) => {
+      console.log(rawPost);
+      post = rawPost[0];
+
+      return knex('comments')
+        .where('post_id', postId)
+    })
+    .then((comments) => {
+      post.allComments = comments;
+
+      res.send(post);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+})
+
 module.exports = router;
