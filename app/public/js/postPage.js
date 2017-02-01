@@ -73,16 +73,7 @@
     }
 
     vm.updatePost = function() {
-      console.log(vm.post);
       delete vm.post.allComments;
-      const image_url = vm.post.image_url;
-      console.log(image_url);
-      const title = vm.post.title;
-      console.log(title);
-      const author = vm.post.author;
-      console.log(author);
-      const body = vm.post.body;
-      console.log(body);
 
       $http.patch(`/api/${$stateParams.id}`, vm.post)
         .then((res) => {

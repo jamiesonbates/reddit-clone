@@ -1,10 +1,13 @@
 'use strict';
 
+const bodyParser = require('body-parser');
 const express = require('express');
 const path = require('path');
 const app = express();
 
 const api = require('./routes/api');
+
+app.use(bodyParser.json());
 
 app.use('/api', api);
 
