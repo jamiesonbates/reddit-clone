@@ -285,3 +285,91 @@ footer {
   Single Post Page
 -------------------------------------------------------------------------------
 */
+
+.single-post {
+  height: 70vh;
+  width: 90%;
+  margin: 0 auto;
+  margin-top: 2vh;
+  background: #E7E8E5;
+  display: flex;
+  align-items: center;
+}
+
+.single-post form {
+  height: 100%;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.image {
+  height: 40%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.img input {
+  height: 10%;
+}
+
+.image img {
+  height: 85%;
+}
+
+.post-details {
+  height: 50%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.post-details input {
+  height: 80%;
+  width: 80%;
+  font-size: 1.5em;
+}
+
+.post-title {
+  height: 10%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.post-author {
+  height: 10%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.post-body {
+  height: 70%;
+  width: 100%;
+}
+
+.post-comments {
+  height: 100%;
+  width: 40%;
+}
+
+.post-votes {
+  height: 80%;
+  width: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.post-votes i {
+  font-size: 7em;
+}
