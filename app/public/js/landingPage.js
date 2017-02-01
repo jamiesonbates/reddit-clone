@@ -17,7 +17,7 @@
           <section ng-style={{ $ctrl.contentHeight }}>
             <div class="post" ng-repeat="post in $ctrl.posts | filter:$ctrl.search | orderBy:$ctrl.selected.orderBy">
               <div class="image">
-                <img src={{post.image}}>
+                <img src={{post.image_url}}>
               </div>
 
               <div class="details">
@@ -34,7 +34,7 @@
                     <div class="comments">
                       <div class="comment-meta">
                         <i class="material-icons">comment</i>
-                        <a href="#" ng-click="$ctrl.toggleComments()">{{post.comments.length}} Comments</a>
+                        <a href="#" ng-click="$ctrl.toggleComments()">{{post.allComments.length}} Comments</a>
                       </div>
 
                       <div ng-if="$ctrl.comment">
@@ -43,8 +43,8 @@
                           <button type="submit">Comment</button>
                         </form>
 
-                        <div ng-repeat="comment in post.comments">
-                          <p>{{ comment }}</p>
+                        <div ng-repeat="comment in post.allComments">
+                          <p>{{ comment.content }}</p>
                         </div>
                       </div>
                     </div>
@@ -54,7 +54,7 @@
 
               <div class="votes">
                 <i class="material-icons" ng-click="$ctrl.updateVotes(post, 'up')">keyboard_arrow_up</i>
-                <p>{{post.votes}}</p>
+                <p>{{post.vote_count}}</p>
                 <i class="material-icons" ng-click="$ctrl.updateVotes(post, 'down')">keyboard_arrow_down</i>
               </div>
 
@@ -113,7 +113,8 @@
       `
     });
 
-    function controller() {
+    controller.$inject = ['$http'];
+    function controller($http) {
       const vm = this;
 
       vm.$onInit = function() {
@@ -121,53 +122,20 @@
         vm.hoverNewPost = false;
         vm.comment = false;
 
-        vm.posts = [
-          {
-            image: 'https://images.pexels.com/photos/226576/pexels-photo-226576.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb',
-            title: 'Darts are Awesome',
-            body: 'Darts are so awesome that I play at least 15 games a day. One at home and 14 at the bar.',
-            author: 'Barstool Sports',
-            created_at: Date.now(),
-            modified_at: Date.now(),
-            votes: 2,
-            comments: []
-          },
-          {
-            image: 'https://3hsyn13u3q9dhgyrg2qh3tin-wpengine.netdna-ssl.com/wp-content/uploads/2017/01/SplitShire-8418-1024x682.jpg',
-            title: 'Man sits alone in pub',
-            body: 'But he is not alone, he is surrounded by a few of his favorite things',
-            author: 'Bar Times',
-            created_at: Date.now(),
-            modified_at: Date.now(),
-            votes: 0,
-            comments: []
-          },
-          {
-            image: 'https://3hsyn13u3q9dhgyrg2qh3tin-wpengine.netdna-ssl.com/wp-content/uploads/2017/01/SplitShire-0424-1024x768.jpg',
-            title: 'Paraglide your way to paradise',
-            body: 'From mountain top to valley bottom, you will spend amazing moments in the air above an incredibly vibrant forest.',
-            author: 'Outdoor Mag',
-            created_at: Date.now(),
-            modified_at: Date.now(),
-            votes: 5,
-            comments: []
-          },
-          {
-            image: 'https://3hsyn13u3q9dhgyrg2qh3tin-wpengine.netdna-ssl.com/wp-content/uploads/2017/01/SplitShire-3600.jpg',
-            title: 'Skiing Changes You',
-            body: 'Get out there this winter. Skiing is an excistential experience where you you experience speed, agility, and utter remoteness all in one.',
-            author: 'Skiing News',
-            created_at: new Date(Date.now()),
-            modified_at: new Date(Date.now()),
-            votes: 7,
-            comments: []
-          }];
+        $http.get('/api/')
+          .then((res) => {
+          vm.posts = res.data;
+          console.log(vm.posts);
+          })
+          .catch((err) => {
+            next(err);
+          })
 
           vm.options = [
             {
               id: 1,
               label: 'Sort by votes',
-              orderBy: `-votes`
+              orderBy: `-vote_count`
             },
             {
               id: 2,
@@ -212,13 +180,13 @@
           vm.posts.map((post) => {
             if (thisPost === post) {
               if (vote === 'up') {
-                post.votes += 1;
+                post.vote_count += 1;
               }
               else {
                 if (post.votes === 0) {
                   return;
                 }
-                post.votes -= 1;
+                post.vote_count -= 1;
               }
             }
           });
