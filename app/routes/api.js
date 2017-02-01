@@ -5,6 +5,7 @@ const router = express.Router();
 const bodyParser = require('body-parser');
 const knex = require('../../db');
 
+// Get all posts and their comments
 router.get('/', (req, res) => {
   let posts;
 
@@ -22,7 +23,7 @@ router.get('/', (req, res) => {
           }
         }
       })
-      
+
       res.send(posts);
     })
     .catch((err) => {
@@ -30,6 +31,8 @@ router.get('/', (req, res) => {
     })
 });
 
+
+// Get one post and its comments
 router.get('/:id', (req, res) => {
   const postId = req.params.id;
   let post;
@@ -52,16 +55,10 @@ router.get('/:id', (req, res) => {
     })
 })
 
+// Update one post
 router.patch('/:id', (req, res) => {
   const postId = req.params.id;
-  console.log(postId);
-  console.log(req.body);
   const { image_url, title, author, body } = req.body;
-  console.log('here');
-  console.log(image_url);
-  console.log(title);
-  console.log(author);
-  console.log(body);
   let post;
 
   return knex('posts')
@@ -69,7 +66,6 @@ router.patch('/:id', (req, res) => {
     .where('id', postId)
     .returning('*')
     .then((rawPost) => {
-      console.log(rawPost);
       post = rawPost[0];
 
       return knex('comments')
