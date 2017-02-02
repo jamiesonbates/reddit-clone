@@ -55,6 +55,52 @@ router.get('/:id', (req, res) => {
     })
 })
 
+// Create new post
+router.post('/post', (req, res) => {
+  const post = req.body;
+
+  return knex('posts')
+    .insert(post)
+    .returning('*')
+    .then((newPost) => {
+      res.send(newPost[0]);
+    });
+})
+
+// Add comment for one post
+router.post('/comment/', (req, res) => {
+  const post = req.body;
+  console.log(post);
+
+  return knex('comments')
+    .insert({ post_id: post.id, content: post.newComment })
+    .returning('*')
+    .then((comment) => {
+      res.send(comment);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+})
+
+// Update vote_count of one post
+router.patch('/votes/', (req, res) => {
+  const vote_count = req.body.vote_count;
+  const id = req.body.id;
+
+  return knex('posts')
+    .update({ vote_count })
+    .where('id', id)
+    .returning('*')
+    .then((post) => {
+      console.log(post);
+      res.send(post);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+})
+
 // Update one post
 router.patch('/:id', (req, res) => {
   const postId = req.params.id;

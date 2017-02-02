@@ -103,7 +103,7 @@
                 <input
                   type="text"
                   name="image"
-                  ng-model="$ctrl.post">
+                  ng-model="$ctrl.post.image_url">
               </div>
 
               <div class="form-submit">
@@ -115,8 +115,8 @@
       `
     });
 
-    controller.$inject = ['$http'];
-    function controller($http) {
+    controller.$inject = ['$http', 'commentService', 'votesService'];
+    function controller($http, commentService, votesService) {
       const vm = this;
 
       vm.$onInit = function() {
@@ -126,8 +126,8 @@
 
         $http.get('/api/')
           .then((res) => {
-          vm.posts = res.data;
-          console.log(vm.posts);
+            vm.posts = res.data;
+            console.log(vm.posts);
           })
           .catch((err) => {
             next(err);
@@ -168,9 +168,15 @@
         }
 
         vm.createPost = function() {
-          vm.post.votes = 0;
-          vm.post.comments = [];
-          vm.posts.push(vm.post);
+          vm.post.vote_count = 0;
+
+          $http.post('/api/post', vm.post)
+            .then((res) => {
+              const newPost = res.data;
+              newPost.allComments = [];
+              vm.posts.push(newPost);
+            })
+
           vm.contentHeight = `{
             height: ${vm.posts.length * 37}vh;
           }`;
@@ -179,19 +185,30 @@
         }
 
         vm.updateVotes = function(thisPost, vote) {
-          vm.posts.map((post) => {
-            if (thisPost === post) {
-              if (vote === 'up') {
-                post.vote_count += 1;
-              }
-              else {
-                if (post.votes === 0) {
-                  return;
+          if (vote === 'up') {
+            thisPost.vote_count += 1;
+          }
+          else if (thisPost.vote_count === 0) {
+            thisPost.vote_count += 0;
+          }
+          else {
+            thisPost.vote_count -= 1;
+          }
+
+          votesService.updateVotes(thisPost)
+            .then((updatedPost) => {
+              vm.posts.map((post, i) => {
+                if (updatedPost.id === post.id) {
+                  vm.posts[i].vote_count === updatedPost.vote_count;
                 }
-                post.vote_count -= 1;
-              }
-            }
-          });
+              })
+              console.log(vm.posts);
+            })
+            .catch((err) => {
+              console.log(err);
+            })
+
+
         }
 
         vm.searchByTitle = function() {
@@ -202,12 +219,20 @@
           vm.comment = !vm.comment;
         }
 
-        vm.addComment = function(post) {
-          console.log(post);
-          post.comments.push(vm.newComment);
+        vm.addComment = function(thisPost) {
+          thisPost.newComment = vm.newComment;
           delete vm.newComment;
+
+          commentService.addComment(thisPost)
+            .then((comment) => {
+              vm.posts.map((post, i) => {
+                if (post.id === comment.post_id) {
+                  vm.posts[i].allComments.push(comment);
+                }
+              });
+            });
         }
-      }
+      };
 
 
 })();

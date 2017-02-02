@@ -305,7 +305,7 @@ footer {
   flex-direction: column;
 }
 
-.image {
+.post-image {
   height: 40%;
   width: 100%;
   display: flex;
@@ -314,11 +314,11 @@ footer {
   align-items: flex-start;
 }
 
-.img input {
+.post-image input {
   height: 10%;
 }
 
-.image img {
+.post-image img {
   height: 85%;
 }
 
@@ -372,4 +372,8 @@ footer {
 
 .post-votes i {
   font-size: 7em;
+}
+
+.post-votes p {
+  font-size: 5em;
 }

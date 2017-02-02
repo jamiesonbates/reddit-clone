@@ -8,7 +8,7 @@
         <main>
           <section class="single-post">
             <form ng-submit="$ctrl.updatePost()">
-              <div class="image">
+              <div class="post-image">
                 <img src="{{ $ctrl.post.image_url }}">
                 <a href="#" ng-click="$ctrl.editImage()">Edit Image</a>
                 <input type="text" ng-model="$ctrl.post.image_url" ng-if="$ctrl.editingImage">
@@ -43,29 +43,29 @@
               </div>
 
               <div class="post-comments-form">
-                <form ng-submit="$ctrl.addComment(post)">
+                <form ng-submit="$ctrl.addComment($ctrl.post)">
                   <input ng-model="$ctrl.newComment" placeholder="Write Comment">
                   <button type="submit">Comment</button>
                 </form>
 
-                <div ng-repeat="comment in post.allComments">
+                <div ng-repeat="comment in $ctrl.post.allComments">
                   <p>{{ comment.content }}</p>
                 </div>
               </div>
             </div>
 
             <div class="post-votes">
-              <i class="material-icons" ng-click="$ctrl.updateVotes(post, 'up')">keyboard_arrow_up</i>
-              <p>{{post.vote_count}}</p>
-              <i class="material-icons" ng-click="$ctrl.updateVotes(post, 'down')">keyboard_arrow_down</i>
+              <i class="material-icons" ng-click="$ctrl.updateVotes($ctrl.post, 'up')">keyboard_arrow_up</i>
+              <p>{{$ctrl.post.vote_count}}</p>
+              <i class="material-icons" ng-click="$ctrl.updateVotes($ctrl.post, 'down')">keyboard_arrow_down</i>
             </div>
           </section>
         </main>
       `
     });
 
-  controller.$inject = ['$http', '$stateParams'];
-  function controller($http, $stateParams) {
+  controller.$inject = ['$http', '$stateParams', 'commentService', 'votesService'];
+  function controller($http, $stateParams, commentService, votesService) {
     const vm = this;
 
     vm.$onInit = function() {
@@ -76,9 +76,7 @@
 
       $http.get(`/api/${$stateParams.id}`)
         .then((res) => {
-          console.log(res.data);
           vm.post = res.data;
-          console.log(vm.post);
         })
         .catch((err) => {
           next(err);
@@ -107,11 +105,42 @@
       $http.patch(`/api/${$stateParams.id}`, vm.post)
         .then((res) => {
           vm.post = res.data;
-          console.log(vm.post);
         })
         .catch((err) => {
           console.log(err);
         })
+    }
+
+    vm.addComment = function(post) {
+      post.newComment = vm.newComment;
+      delete vm.newComment;
+
+      commentService.addComment(post)
+        .then((comment) => {
+          vm.post.allComments.push(comment);
+        })
+    }
+
+    vm.updateVotes = function(post, vote) {
+      if (vote === 'up') {
+        post.vote_count += 1;
+      }
+      else if (post.vote_count === 0) {
+        post.vote_count += 0;
+      }
+      else {
+        post.vote_count -= 1;
+      }
+
+      votesService.updateVotes(post)
+        .then((updatedPost) => {
+          vm.post.vote_count = updatedPost.vote_count;
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+
+
     }
   }
 })();
