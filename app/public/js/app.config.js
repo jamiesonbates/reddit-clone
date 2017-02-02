@@ -9,9 +9,9 @@
 
     $stateProvider
       .state({
-        name: 'landingPage',
+        name: 'parent',
         url: '/',
-        component: 'landingPage'
+        component: 'parent'
       })
       .state({
         name: 'postPage',

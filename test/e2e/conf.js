@@ -16,7 +16,7 @@ exports.config = {
   specs: ['*.test.js'],
   onPrepare: function () {
     const path = require('path')
-    const app = require('../../app/app')
+    const app = require('../../app/server')
     const http = require('http')
     const server = http.createServer(app)
 

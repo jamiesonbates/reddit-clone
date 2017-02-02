@@ -1,4 +1,4 @@
-const knex = require('../../app/db')
+const knex = require('../../db')
 
 describe('App', function() {
   beforeEach(done => {

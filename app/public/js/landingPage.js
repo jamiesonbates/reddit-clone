@@ -124,7 +124,7 @@
         vm.hoverNewPost = false;
         vm.comment = false;
 
-        $http.get('/api/')
+        $http.get('/api/posts')
           .then((res) => {
             vm.posts = res.data;
             console.log(vm.posts);
@@ -207,12 +207,6 @@
             .catch((err) => {
               console.log(err);
             })
-
-
-        }
-
-        vm.searchByTitle = function() {
-          console.log(vm.search);
         }
 
         vm.toggleComments = function() {

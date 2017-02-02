@@ -1,0 +1,48 @@
+<aside ng-class="{
+    'active-post' : $ctrl.newPost,
+  }">
+
+  <header ng-click="$ctrl.showPost()" ng-class="{ 'hover-post' : $ctrl.hoverNewPost }" ng-mouseenter="$ctrl.hoverPost()" ng-mouseleave="$ctrl.hoverPost()" ng-class="{ 'align-post-header' : $ctrl.post }">
+    <h2>Create Post</h2>
+  </header>
+
+  <div class="post-form" ng-show="$ctrl.newPost">
+    <form novalidate ng-submit="$ctrl.createPost()" name="post-form">
+      <div class="form-input">
+        <label>Title</label>
+        <input
+          type="text"
+          name="title"
+          ng-model="$ctrl.post.title">
+      </div>
+
+      <div class="form-input">
+        <label>Body</label>
+        <input
+          type="text"
+          name="body"
+          ng-model="$ctrl.post.body">
+      </div>
+
+      <div class="form-input">
+        <label>Author</label>
+        <input
+          type="text"
+          name="author"
+          ng-model="$ctrl.post.author">
+      </div>
+
+      <div class="form-input">
+        <label>Image Url</label>
+        <input
+          type="text"
+          name="image"
+          ng-model="$ctrl.post.image_url">
+      </div>
+
+      <div class="form-submit">
+        <button type="submit">Submit</button>
+      </div>
+    </form>
+  </div>
+</aside>

@@ -1,0 +1,10 @@
+<div ng-if="$ctrl.comment">
+  <form ng-submit="$ctrl.addComment(post)">
+    <input ng-model="$ctrl.newComment" placeholder="Write Comment">
+    <button type="submit">Comment</button>
+  </form>
+
+  <div ng-repeat="comment in post.allComments">
+    <p>{{ comment.content }}</p>
+  </div>
+</div>

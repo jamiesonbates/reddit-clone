@@ -74,7 +74,7 @@
       vm.editingAuthor = false;
       vm.editingBody = false;
 
-      $http.get(`/api/${$stateParams.id}`)
+      $http.get(`/api/posts/${$stateParams.id}`)
         .then((res) => {
           vm.post = res.data;
         })

@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const knex = require('../../db');
 
 // Get all posts and their comments
-router.get('/', (req, res) => {
+router.get('/posts', (req, res) => {
   let posts;
 
   return knex('posts')
@@ -33,7 +33,7 @@ router.get('/', (req, res) => {
 
 
 // Get one post and its comments
-router.get('/:id', (req, res) => {
+router.get('/posts/:id', (req, res) => {
   const postId = req.params.id;
   let post;
 
