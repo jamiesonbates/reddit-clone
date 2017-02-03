@@ -29,7 +29,7 @@
               <a href="#" ng-click="$ctrl.toggleComments()">{{post.allComments.length}} Comments</a>
             </div>
 
-            <div ng-if="$ctrl.comment">
+            <!-- <div ng-if="$ctrl.comment">
               <form ng-submit="$ctrl.addComment(post)">
                 <input ng-model="$ctrl.newComment" placeholder="Write Comment">
                 <button type="submit">Comment</button>
@@ -38,10 +38,10 @@
               <div ng-repeat="comment in post.allComments">
                 <p>{{ comment.content }}</p>
               </div>
-            </div>
+            </div> -->
           </div>
 
-          <a ui-sref="postPage({ id: post.id })">Edit</a>
+          <a ui-sref="singlePost({ id: post.id })">Edit</a>
         </div>
       </div>
     </div>
@@ -52,6 +52,6 @@
       <i class="material-icons" ng-click="$ctrl.updateVotes(post, 'down')">keyboard_arrow_down</i>
     </div>
 
+    <comments comment="$ctrl.comment" post="post"></comments>
   </div>
-  <comments></comments>
 </section>

@@ -2,8 +2,8 @@
   'use strict';
 
   angular.module('app')
-    .component('parent', {
-      templateUrl: '/js/parent/parent.template.html',
+    .component('home', {
+      templateUrl: '/js/states/home.template.html',
       controller: controller
     });
 

@@ -1,0 +1,52 @@
+<header>
+  <div class="container">
+    <h1>Reddit Clone</h1>
+  </div>
+</header>
+
+<main>
+  <section class="single-post">
+    <form ng-submit="$ctrl.updatePost()">
+      <div class="post-image">
+        <img src="{{ $ctrl.post.image_url }}">
+        <a href="#" ng-click="$ctrl.editImage()">Edit Image</a>
+        <input type="text" ng-model="$ctrl.post.image_url" ng-if="$ctrl.editingImage">
+      </div>
+      <div class="post-details">
+        <div class="post-title">
+          <h3 ng-show="$ctrl.editingTitle===false">{{ $ctrl.post.title}}</h3>
+          <input type="text" ng-model="$ctrl.post.title" ng-if="$ctrl.editingTitle">
+          <a href="#" ng-click="$ctrl.editTitle()">(edit)</a>
+        </div>
+
+        <div class="post-author">
+          <h4 ng-show="$ctrl.editingAuthor===false">{{ $ctrl.post.author }}</h4>
+          <input type="text" ng-model="$ctrl.post.author" ng-if="$ctrl.editingAuthor">
+          <a href="#" ng-click="$ctrl.editAuthor()">(edit)</a>
+        </div>
+
+        <div class="post-body">
+          <p ng-show="$ctrl.editingBody===false">{{ $ctrl.post.body }}</p>
+          <input type="text" ng-model="$ctrl.post.body" ng-if="$ctrl.editingBody">
+          <a href="#" ng-click="$ctrl.editBody()">(edit)</a>
+        </div>
+      </div>
+
+      <button type="submit" ng-if="$ctrl.editingImage || $ctrl.editingTitle || $ctrl.editingAuthor || $ctrl.editingBody">Submit</button>
+    </form>
+
+    <div class="post-comments">
+      <i class="material-icons">comment</i>
+      <a href="#" ng-click="$ctrl.toggleComments()">Comments</a>
+    </div>
+
+    <div class="post-votes">
+      <i class="material-icons" ng-click="$ctrl.updateVotes($ctrl.post, 'up')">keyboard_arrow_up</i>
+      <p>{{$ctrl.post.vote_count}}</p>
+      <i class="material-icons" ng-click="$ctrl.updateVotes($ctrl.post, 'down')">keyboard_arrow_down</i>
+    </div>
+  </section>
+  <comments comment="$ctrl.comment" post="$ctrl.post"></comments>
+</main>
+
+<footer></footer>

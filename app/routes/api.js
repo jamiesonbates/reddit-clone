@@ -102,7 +102,7 @@ router.patch('/votes/', (req, res) => {
 })
 
 // Update one post
-router.patch('/:id', (req, res) => {
+router.patch('/posts/:id', (req, res) => {
   const postId = req.params.id;
   const { image_url, title, author, body } = req.body;
   let post;

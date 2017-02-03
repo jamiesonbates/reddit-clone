@@ -9,14 +9,14 @@
 
     $stateProvider
       .state({
-        name: 'parent',
+        name: 'home',
         url: '/',
-        component: 'parent'
+        component: 'home'
       })
       .state({
-        name: 'postPage',
+        name: 'singlePost',
         url: '/post/:id',
-        component: 'postPage'
+        component: 'singlePost'
       })
   }
 })();

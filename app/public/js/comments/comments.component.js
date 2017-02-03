@@ -6,9 +6,10 @@
       templateUrl: '/js/comments/comments.template.html',
       controller: controller,
       bindings: {
-
+        post: '=',
+        comment: '<'
       }
-    })
+    });
 
   controller.$inject = ['$http', 'commentService'];
   function controller($http, commentService) {
@@ -20,11 +21,10 @@
 
       commentService.addComment(thisPost)
         .then((comment) => {
-          vm.posts.map((post, i) => {
-            if (post.id === comment.post_id) {
-              vm.posts[i].allComments.push(comment);
-            }
-          });
+          vm.post.allComments.push(comment);
+        })
+        .catch((err) => {
+          console.log(err);
         });
     }
   }
