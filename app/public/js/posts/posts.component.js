@@ -17,6 +17,12 @@
     const vm = this;
 
     vm.$onInit = function() {
+      vm.postHeight = {
+        'height': '35vh'
+      };
+      vm.commentHeight = {
+        'height': '15%'
+      }
       vm.comment = false;
 
       vm.options = [
@@ -67,6 +73,12 @@
     }
 
     vm.toggleComments = function() {
+      vm.postHeight = {
+        'height': '55vh'
+      };
+      vm.commentHeight = {
+        'height': '40%'
+      };
       vm.comment = !vm.comment;
     }
 

@@ -1,57 +1,51 @@
 <section class="filters">
   <div class="filter-container">
-    <input class="text-filter type="text" ng-model="$ctrl.search">
+    <input class="text-filter" type="text" ng-model="$ctrl.search">
     <select class="select-filter" ng-options="option as option.label for option in $ctrl.options track by option.id" ng-model="$ctrl.selected">
     </select>
   </div>
 </section>
 
 <section ng-style="$ctrl.contentHeight">
-  <div class="post" ng-repeat="post in $ctrl.posts | filter:$ctrl.search | orderBy:$ctrl.selected.orderBy">
-    <div class="image">
-      <img src={{post.image_url}}>
-    </div>
-
-    <div class="details">
-      <div class="details-container">
-        <div class="opening">
-          <h3>{{post.title}}</h3>
-          <h4>{{post.author}}</h4>
+  <div class="post" ng-repeat="post in $ctrl.posts | filter:$ctrl.search | orderBy:$ctrl.selected.orderBy" ng-style="$ctrl.postHeight">
+    <div class="post-info">
+      <div class="information">
+        <div class="image">
+          <img src={{post.image_url}}>
         </div>
-        <p>{{post.body}}</p>
-        <div class="meta">
-          <div class="from-now">
-            <p am-time-ago="post.created_at"></p>
-          </div>
-          <div class="comments">
-            <div class="comment-meta">
-              <i class="material-icons">comment</i>
-              <a href="#" ng-click="$ctrl.toggleComments()">{{post.allComments.length}} Comments</a>
+
+        <div class="details">
+          <div class="details-container">
+            <div class="opening">
+              <h3>{{post.title}}</h3>
+              <h4>{{post.author}}</h4>
             </div>
-
-            <!-- <div ng-if="$ctrl.comment">
-              <form ng-submit="$ctrl.addComment(post)">
-                <input ng-model="$ctrl.newComment" placeholder="Write Comment">
-                <button type="submit">Comment</button>
-              </form>
-
-              <div ng-repeat="comment in post.allComments">
-                <p>{{ comment.content }}</p>
+            <p>{{post.body.substr(0, 250) + '...'}}</p>
+            <div class="meta">
+              <div class="from-now">
+                <p am-time-ago="post.created_at"></p>
               </div>
-            </div> -->
+            </div>
+            <div class="post-btns">
+              <button class="single-post-btn"><a ui-sref="singlePost({ id: post.id })">Edit</a></button>
+              <button class="single-post-btn"><a ui-sref="singlePost({ id: post.id })">Full Post</a></button>
+            </div>
           </div>
+        </div>
 
-          <a ui-sref="singlePost({ id: post.id })">Edit</a>
+        <div class="votes">
+          <i class="material-icons" ng-click="$ctrl.updateVotes(post, 'up')">keyboard_arrow_up</i>
+          <p>{{post.vote_count}}</p>
+          <i class="material-icons" ng-click="$ctrl.updateVotes(post, 'down')">keyboard_arrow_down</i>
         </div>
       </div>
     </div>
-
-    <div class="votes">
-      <i class="material-icons" ng-click="$ctrl.updateVotes(post, 'up')">keyboard_arrow_up</i>
-      <p>{{post.vote_count}}</p>
-      <i class="material-icons" ng-click="$ctrl.updateVotes(post, 'down')">keyboard_arrow_down</i>
+    <div class="comments" ng-style="$ctrl.commentHeight">
+      <div class="comment-meta">
+        <i class="material-icons">comment</i>
+        <a href="#" ng-click="$ctrl.toggleComments()">{{post.allComments.length}} Comments</a>
+      </div>
+      <comments comment="$ctrl.comment" post="post"></comments>
     </div>
-
-    <comments comment="$ctrl.comment" post="post"></comments>
   </div>
 </section>
