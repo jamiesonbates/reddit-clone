@@ -23,6 +23,9 @@
       vm.commentHeight = {
         'height': '15%'
       }
+      vm.infoHeight = {
+        'height': '80%'
+      }
       vm.comment = false;
 
       vm.options = [
@@ -68,17 +71,31 @@
         .catch((err) => {
           console.log(err);
         })
-
-
     }
 
     vm.toggleComments = function() {
-      vm.postHeight = {
-        'height': '55vh'
-      };
-      vm.commentHeight = {
-        'height': '40%'
-      };
+      if (vm.comment) {
+        vm.postHeight = {
+          'height': '35vh'
+        };
+        vm.commentHeight = {
+          'height': '15%'
+        }
+        vm.infoHeight = {
+          'height': '80%'
+        }
+      }
+      else {
+        vm.postHeight = {
+          'height': '55vh'
+        };
+        vm.commentHeight = {
+          'height': '40%'
+        };
+        vm.infoHeight = {
+          'height': '55%'
+        }
+      }
       vm.comment = !vm.comment;
     }
 

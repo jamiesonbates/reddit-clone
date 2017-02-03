@@ -85,6 +85,17 @@ h1 { /* oddly is not centering via flexbox */
   overflow: visible;
 }
 
+.post-info {
+  width: 95%;
+  margin: 0 auto;
+}
+
+.information {
+  height: 90%;
+  width: 100%;
+  display: flex;
+}
+
 .votes {
   height: 100%;
   width: 7.5%;
@@ -154,18 +165,12 @@ h1 { /* oddly is not centering via flexbox */
   justify-content: space-between;
 }
 
-.information {
-  height: 75%;
-  width: 95%;
-  margin: 0 auto;
-  display: flex;
-}
-
 .comments {
-  width: 95%;
+  width: 80%;
   margin:0 auto;
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
 }
 
 .all-comments{
@@ -176,6 +181,11 @@ h1 { /* oddly is not centering via flexbox */
 .comment-meta {
   display: flex;
   flex-direction: row;
+}
+
+.comment-meta a {
+  margin-left: 5px;
+  font-size: 1.2em;
 }
 
 .post-btns {
