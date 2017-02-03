@@ -178,6 +178,26 @@ h1 { /* oddly is not centering via flexbox */
   width: 100%;
 }
 
+.comments-component {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
+}
+
+.single-comment {
+  width: 100%;
+  margin-bottom: 2px;
+  background-color: white;
+}
+
+.single-comment p {
+  margin-left: 2%;
+}
+
 .comment-meta {
   display: flex;
   flex-direction: row;

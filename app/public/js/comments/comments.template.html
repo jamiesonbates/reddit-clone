@@ -5,6 +5,8 @@
   </form>
 
   <div ng-repeat="comment in $ctrl.post.allComments">
-    <p>{{ comment.content }}</p>
+    <div class="single-comment">
+      <p>{{ comment.content }}</p>
+    </div>
   </div>
 </div>
